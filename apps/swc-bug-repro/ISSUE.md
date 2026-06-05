@@ -57,10 +57,20 @@ in general.
 
 ## Root-cause hypothesis
 
-The visitor/folder appears to stop walking sibling module items once it encounters
-a `TsModuleDecl` (module/namespace). Everything after that node in the same scope
-is never visited, so its macros are neither transformed nor collected. (Likely in
-the shared `lingui_macro` crate — `js_macro_folder` / item iteration.)
+Neither the macro fold (`js_macro_folder` only overrides `fold_expr`/`fold_call_expr`
++ `fold_children_with`) nor `MessageExtractorVisitor` manually skips module items —
+so this is **not** a traversal halt. The trigger being a `TsModuleDecl` specifically
+(while `declare const`/`declare function` are fine) points to a **binding/scope
+resolution gap**: after a `TsModuleDecl`, references to the `Trans`/`t` import are no
+longer recognized as the macro binding, so the extractor's `is_trans_component` /
+macro-call checks return false and skip them. Likely an interaction between the SWC
+`resolver` pass and `TsModuleDecl`, or how the import binding is captured.
+
+Note: reproduced via the **`lingui-swc` extractor** path (`resolver → fold →
+MessageExtractorVisitor`). The runtime transform path (`resolver → fold`, no
+extractor visitor) was not observed to be affected, but since both share the
+`resolver` step, please confirm the transform recognizes post-`TsModuleDecl`
+macros.
 
 ## Impact
 
