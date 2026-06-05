@@ -1,11 +1,16 @@
-# Issue draft — target: `lingui/swc-plugin`
+# Bug report draft — target: comment on `lingui/js-lingui#2436` ("Rust extractor")
 
+> The bug lives in **`lingui-swc`** (repo `timofei-iatsenko/lingui-rust-tools`,
+> which has issues disabled). The maintainer solicits lingui-swc feedback in
+> js-lingui#2436, so post it there.
 > Prepared, not yet submitted. Review before filing.
 > Repro repo: https://github.com/yunsii/lingui-extract-bench (`apps/swc-bug-repro`)
 
 ---
 
-**Title:** Macro skips all messages after a `TsModuleDecl` block (`module` / `namespace` / `declare module` / `declare global`)
+Tried `lingui-swc` as a drop-in extractor and hit a bug:
+**it drops every message that appears after a `TsModuleDecl` block** (`module` /
+`namespace` / `declare module` / `declare global`).
 
 ## Summary
 
