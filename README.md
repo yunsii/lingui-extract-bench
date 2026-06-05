@@ -157,6 +157,21 @@ End-to-end three-way (heavy app, w=8): v5 **9.29s/1545MB** → v6 **9.04s/1490MB
 → v6+Rust **7.69s/856MB**. The Rust extractor's big win is memory; the wall-clock
 ceiling stays until esbuild bundling is replaced (see the rewrite design in docs).
 
+## Found bug: lingui-swc drops messages after `declare module`
+
+While A/B-testing the native Rust extractor on a real project, `lingui-swc`
+(≤ 0.6.0) was found to **silently skip every message that appears after a TS
+ambient declaration** (`declare module` / `declare global` / `declare namespace`).
+Minimal reproduction + a CI guard live in
+[`apps/swc-bug-repro/`](apps/swc-bug-repro/):
+
+```bash
+pnpm --filter @bench/app-swc-bug-repro repro        # reproduces (exits 1)
+node scripts/check-declare-lingui.mjs <your-src>     # guard: flag at-risk files
+```
+
+Workaround (no fork): move ambient declarations into `*.d.ts` files.
+
 ## Credits / prior art
 
 - [`lingui/js-lingui#2436`](https://github.com/lingui/js-lingui/issues/2436) — the

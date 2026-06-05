@@ -8,6 +8,12 @@ importers:
 
   .: {}
 
+  apps/swc-bug-repro:
+    dependencies:
+      lingui-swc:
+        specifier: ^0.6.0
+        version: 0.6.0
+
   apps/synthetic: {}
 
   runners/v5:
@@ -753,24 +759,28 @@ packages:
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   lingui-swc-linux-arm64-musl@0.6.0:
     resolution: {integrity: sha512-Bvdcr4KIc+g1MWy37MD8q4rRJiOfgSBBpbbgZEf1UWOGrd4tWYa1oK2PHFu6Ll+uf64AvRIsBf94kq8iNL2rTQ==}
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   lingui-swc-linux-x64-gnu@0.6.0:
     resolution: {integrity: sha512-Tn+6CjRNeN2RO508mivCLWx2EGwuyruHSuxLuT43gpr38z+O2j7QSuCE5nHonl/yGHN8wTooj9lokb3bZZAkWg==}
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   lingui-swc-linux-x64-musl@0.6.0:
     resolution: {integrity: sha512-+YGzhQTHLVU31//jefoBbbDUrpJ5kFlr4iI/vKhDDLepqXA7VR3QcjaI5tUnavI70Xx5gH367QlJaNm/HvFjiQ==}
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   lingui-swc-win32-arm64-msvc@0.6.0:
     resolution: {integrity: sha512-dSnH1+pcDiLDPKG4n6BWeVkMq5mdGegVJdhBBtUCee+sVwjTiccubXEDz0npEKMLYtDDGA6mS9JybyIhX2VisA==}

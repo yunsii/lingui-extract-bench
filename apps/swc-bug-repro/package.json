@@ -1,0 +1,13 @@
+{
+  "name": "@bench/app-swc-bug-repro",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Minimal reproduction: lingui-swc skips all messages that appear AFTER a TS ambient declaration block (declare module / declare global / declare namespace).",
+  "scripts": {
+    "repro": "node repro.mjs"
+  },
+  "dependencies": {
+    "lingui-swc": "^0.6.0"
+  }
+}
