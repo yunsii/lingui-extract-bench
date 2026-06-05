@@ -1,0 +1,20 @@
+{
+  "name": "lingui-extract-bench",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reproducible benchmark harness for the Lingui experimental (esbuild) message extractor: synthetic app generator, phase profiler, worker-scaling and version A/B benchmarks, and Babel-vs-Rust(SWC) extractor throughput.",
+  "type": "module",
+  "scripts": {
+    "gen": "node apps/synthetic/generate.mjs --out runners/v5 --preset heavy && node apps/synthetic/generate.mjs --out runners/v6 --preset heavy",
+    "profile:v5": "node apps/synthetic/generate.mjs --out runners/v5 --preset heavy && cd runners/v5 && node ../../tools/profile-v5.mjs",
+    "profile:v6": "node apps/synthetic/generate.mjs --out runners/v6 --preset heavy && cd runners/v6 && node ../../tools/profile.mjs",
+    "bench:workers": "node apps/synthetic/generate.mjs --out runners/v6 --preset heavy && bash scripts/bench-workers.sh runners/v6",
+    "bench:ab": "pnpm run gen && bash scripts/bench-ab-version.sh",
+    "bench:ab-w1": "pnpm run gen && bash scripts/bench-ab-w1.sh",
+    "bench:3way": "pnpm run gen && bash scripts/bench-3way.sh",
+    "bench:extractor": "node apps/synthetic/generate.mjs --out runners/v6 --preset heavy && cd runners/v6 && node ../../tools/bench-extractor.mjs",
+    "bench:all": "pnpm run bench:3way && pnpm run bench:ab-w1 && pnpm run profile:v5 && pnpm run profile:v6 && pnpm run bench:extractor"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@11.5.1"
+}

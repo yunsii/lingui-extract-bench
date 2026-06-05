@@ -1,0 +1,10 @@
+{
+  "name": "@bench/app-synthetic",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Synthetic extraction-target app fixture. Generates a Next.js-pages-style project: many page entries, each importing a subset of a shared component pool, all using Lingui macros. Reproduces the cost structure of the experimental extractor (shared modules bundled+parsed once per entry).",
+  "bin": {
+    "gen-synthetic": "./generate.mjs"
+  }
+}

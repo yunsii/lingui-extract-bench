@@ -1,0 +1,14 @@
+node_modules/
+.pnpm-store/
+
+# Generated app source (produced by apps/synthetic/generate.mjs) and extractor output
+runners/*/src/
+runners/*/tsconfig.json
+runners/*/src/locales/
+runners/**/locales/
+.lingui/
+
+# Local scratch results (commit curated ones under results/ explicitly)
+*.local.md
+/tmp-results/
+*.log

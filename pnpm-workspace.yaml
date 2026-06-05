@@ -1,0 +1,8 @@
+packages:
+  - "apps/*"
+  - "runners/*"
+
+# esbuild needs its postinstall to fetch the platform binary; the experimental
+# extractor depends on it. (pnpm 10+ blocks build scripts unless allowlisted.)
+onlyBuiltDependencies:
+  - esbuild

@@ -1,0 +1,16 @@
+{
+  "name": "@bench/runner-v6",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Lingui v6.2.0 extraction runner, plus the native Rust (SWC) extractor for throughput comparison.",
+  "scripts": {
+    "extract": "lingui extract-experimental --workers 1"
+  },
+  "dependencies": {
+    "@lingui/cli": "6.2.0",
+    "@lingui/conf": "6.2.0",
+    "@lingui/format-po": "6.2.0",
+    "lingui-swc": "^0.6.0"
+  }
+}
