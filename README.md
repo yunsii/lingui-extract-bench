@@ -17,6 +17,66 @@ It answers, with measurements:
 > is ~5–49× faster than Babel — so a resolver-driven, parse-once rewrite is the
 > real lever. Full write-up in [`docs/findings.md`](docs/findings.md).
 
+## Results at a glance
+
+Measured on a 20-core WSL2 box, heavy synthetic app (120 entries × 20 locales,
+2400 `.po`). Charts render natively on GitHub (Mermaid). Numbers in
+[`results/`](results/).
+
+**End-to-end: old vs new lingui vs native Rust extractor (8 workers)**
+
+```mermaid
+xychart-beta
+    title "Wall-clock @ 8 workers (s, lower is better)"
+    x-axis ["v5 babel", "v6 babel", "v6 + rust"]
+    y-axis "seconds" 0 --> 10
+    bar [9.29, 9.04, 7.69]
+```
+
+```mermaid
+xychart-beta
+    title "Peak memory @ 8 workers (MB, lower is better)"
+    x-axis ["v5 babel", "v6 babel", "v6 + rust"]
+    y-axis "MB" 0 --> 1600
+    bar [1545, 1490, 856]
+```
+
+The drop-in Rust extractor's headline is the **~43% memory cut** (856 vs 1490 MB);
+wall-clock only drops ~15% because esbuild bundling and catalog writing are
+untouched.
+
+**Why more workers stop helping (v6, heavy app)**
+
+```mermaid
+xychart-beta
+    title "v6 wall-clock vs --workers (s)"
+    x-axis ["1", "3", "8", "16"]
+    y-axis "seconds" 0 --> 18
+    bar [16.51, 9.87, 8.78, 9.57]
+```
+
+**Where the time goes (v6, single-thread)** — esbuild bundle does *not*
+parallelize across workers, so it caps wall-clock:
+
+```mermaid
+pie showData
+    title v6 phase share (single-thread, seconds)
+    "esbuild bundle (not parallel)" : 5.63
+    "merge + write .po" : 4.62
+    "babel parse + collect" : 2.59
+```
+
+**Raw extractor throughput (270 files, ms — lower is better)** — parsing is *not*
+the bottleneck once native:
+
+```mermaid
+xychart-beta
+    title "Extractor throughput, 270 files (ms)"
+    x-axis ["Babel 1-thread", "Rust 1-thread", "Rust Rayon"]
+    y-axis "ms" 0 --> 4500
+    bar [4404, 959, 90]
+```
+
 ## Layout
 
 ```
