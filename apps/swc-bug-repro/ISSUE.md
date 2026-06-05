@@ -1,9 +1,10 @@
-# Bug report draft — target: comment on `lingui/js-lingui#2436` ("Rust extractor")
+# Bug report — posted to `lingui/js-lingui#2436` ("Rust extractor")
 
+> ✅ POSTED: https://github.com/lingui/js-lingui/issues/2436#issuecomment-4628810317
+>
 > The bug lives in **`lingui-swc`** (repo `timofei-iatsenko/lingui-rust-tools`,
 > which has issues disabled). The maintainer solicits lingui-swc feedback in
-> js-lingui#2436, so post it there.
-> Prepared, not yet submitted. Review before filing.
+> js-lingui#2436, so it was posted there.
 > Repro repo: https://github.com/yunsii/lingui-extract-bench (`apps/swc-bug-repro`)
 
 ---
